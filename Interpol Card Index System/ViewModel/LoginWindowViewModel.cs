@@ -1,5 +1,6 @@
 ﻿using Interpol_Card_Index_System.Commands;
 using Interpol_Card_Index_System.Models;
+using Interpol_Card_Index_System.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,11 +66,16 @@ namespace Interpol_Card_Index_System.ViewModel
 
         private void Login(object parameter)
         {
-            User user = YourDataAccessMethodToGetUser(Username, Password);
+            User user = FindUser(Username, Password);
 
             if (user != null)
             {
                 MessageBox.Show($"You authorized in system as a {user.Name}!");
+
+                Views.MainWindow mainWindow = new Views.MainWindow();
+                mainWindow.Show();
+
+                Application.Current.MainWindow.Close();
             }
             else
             {
@@ -77,7 +83,7 @@ namespace Interpol_Card_Index_System.ViewModel
             }
         }
 
-        private User YourDataAccessMethodToGetUser(string username, string password)
+        private User FindUser(string username, string password)
         {
             return _users.Find(u => u.Login == username && u.Password == password);
         }
