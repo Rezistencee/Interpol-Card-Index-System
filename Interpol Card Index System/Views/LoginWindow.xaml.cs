@@ -34,10 +34,5 @@ namespace Interpol_Card_Index_System.Views
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
-
-        private void AuthorizationButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("You authorizated in system!");
-        }
     }
 }
