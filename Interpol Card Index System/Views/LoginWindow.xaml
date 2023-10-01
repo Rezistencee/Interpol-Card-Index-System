@@ -3,16 +3,97 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.ViewModel"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" 
+        Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0" Color="#FF7F7FAA"/>
+                        <!-- Более светлый сине-фиолетовый -->
+                        <GradientStop Offset="1" Color="#FF555579"/>
+                        <!-- Более темный сине-фиолетовый -->
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BottomLineTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Rectangle x:Name="PART_BottomLine" 
+                               Fill="White" 
+                               Height="1" 
+                               VerticalAlignment="Bottom"
+                               Width="{Binding ActualWidth, ElementName=PART_ContentHost}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="PART_BottomLine"
+                                                    Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                                    To="Green"
+                                                    Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="PART_BottomLine"
+                                                    Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                                    To="White"
+                                                    Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Window.Background>
         <LinearGradientBrush StartPoint="0, 1" EndPoint="1, 1">
             <GradientStop Color="#000000" Offset="0"/>
             <GradientStop Color="#4D4855" Offset="0.5"/>
         </LinearGradientBrush>
     </Window.Background>
+
+    <Window.DataContext>
+        <local1:LoginWindowViewModel/>
+    </Window.DataContext>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -26,17 +107,57 @@
                 Height="40" Width="40" Margin="0"
                 HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click"/>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="170" Margin="0, 5">
+            <Image VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Source="https://cdn.coinmooner.com/logo/4744.png?v=1"
+                   Width="96" Height="96" Margin="0, 10"/>
+
+
             <StackPanel>
-                <Label Content="Username:" Foreground="White"/>
-                <TextBlock Width="150" Height="25" Margin="0, 10" Background="White"/>
+                <Label Content="Username:" Foreground="White" FontSize="18"/>
+                <TextBox x:Name="loginTextBox" Style="{StaticResource BottomLineTextBox}"
+                         Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Width="170" Height="25" Margin="0, 10" FontSize="14"/>
             </StackPanel>
             <StackPanel>
-                <Label Content="Password:" Foreground="White"/>
-                <TextBlock Width="150" Height="25" Background="White"/>
+                <Label Content="Password:" Foreground="White" FontSize="18"/>
+                <TextBox x:Name="passwordTextBox" Style="{StaticResource BottomLineTextBox}"
+                         Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Width="170" Height="25" FontSize="14"/>
             </StackPanel>
-            <Button Content="Authorization" Margin="0, 15" FontSize="18" Foreground="White" 
-                    Background="#7A7ADB" Click="AuthorizationButton_Click"/>
+            <Button Content="Authorization" Margin="0, 15"
+                    Style="{StaticResource MyButtonStyle}" Command="{Binding LoginCommand}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0:0:0.2" 
+                        Storyboard.TargetProperty="(Button.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" 
+                        To="#FF4C4C6F" />
+                                <!-- Более светлый сине-фиолетовый -->
+                                <ColorAnimation Duration="0:0:0.2" 
+                        Storyboard.TargetProperty="(Button.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" 
+                        To="#FF2D2D49" />
+                                <!-- Более темный сине-фиолетовый -->
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Button.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0:0:0.2" 
+                        Storyboard.TargetProperty="(Button.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" 
+                        To="#FF7F7FAA" />
+                                <!-- Вернуть к начальному цвету -->
+                                <ColorAnimation Duration="0:0:0.2" 
+                        Storyboard.TargetProperty="(Button.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" 
+                        To="#FF555579" />
+                                <!-- Вернуть к начальному цвету -->
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
