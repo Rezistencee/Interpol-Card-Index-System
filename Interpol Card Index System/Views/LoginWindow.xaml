@@ -101,7 +101,8 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="[ICIS] Login Window" Grid.Row="0" Foreground="White" 
+        <Label Content="[ICIS] Login Window" Grid.Row="0" Foreground="White"
+               FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
                FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Button Content="X" Grid.Row="0" Background="#182B3A" Foreground="White" 
                 Height="40" Width="40" Margin="0"

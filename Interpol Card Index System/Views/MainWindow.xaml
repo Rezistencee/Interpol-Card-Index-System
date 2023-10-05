@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.ViewModel"
         mc:Ignorable="d"
         Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
@@ -16,9 +16,10 @@
 
     <Window.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="120"/>
+            <Setter Property="Width" Value="150"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource GraduateFont}"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Margin" Value="0, 10"/>
             <Setter Property="Background" Value="#372F3C"/>
@@ -40,6 +41,10 @@
         </Style>
     </Window.Resources>
 
+    <Window.DataContext>
+        <local1:MainWindowViewModel/>
+    </Window.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -47,6 +52,7 @@
         </Grid.RowDefinitions>
         
         <Label Content="[ICIS] Main Window" Grid.Row="0" Foreground="White" 
+               FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
                FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Button Content="X" Grid.Row="0" Background="#182B3A" Foreground="White" 
                 Height="40" Width="40" Margin="0"
@@ -59,7 +65,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Width="150">
+            <StackPanel Grid.Column="0" Width="170">
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Offset="0" Color="#332F3B" />
@@ -67,13 +73,56 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
 
-                <Button Content="Option 1" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Option 2" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Option 3" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Criminals" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Crime groups" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Agents" Style="{StaticResource MenuButtonStyle}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
-                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Margin="10, 5" BorderBrush="White" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Margin="5, 15" Foreground="White" FontFamily="{StaticResource GraduateFont}" FontSize="14">
+                                <Run Text="Current date and time: " />
+                                <Run Text="{Binding CurrentDateAndTime}" />
+                            </TextBlock>
+                            <Border BorderBrush="White" BorderThickness="0, 0, 0, 2" Height="4"/>
+                            <TextBlock Margin="5, 15" Foreground="White" FontFamily="{StaticResource GraduateFont}" FontSize="14">
+                                <Run Text="Criminals count: " />
+                                <Run Text="0" />
+                            </TextBlock>
+                            <TextBlock Margin="5, 15" Foreground="White" FontFamily="{StaticResource GraduateFont}" FontSize="14">
+                                <Run Text="Crime groups count: " />
+                                <Run Text="0" />
+                            </TextBlock>
+                            <TextBlock Margin="5, 15" Foreground="White" FontFamily="{StaticResource GraduateFont}" FontSize="14">
+                                <Run Text="Agents count: " />
+                                <Run Text="0" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Agent information" FontFamily="{StaticResource GraduateFont}" 
+                                   Foreground="Wheat" FontSize="16" HorizontalAlignment="Center" Margin="0, 10"/>
+                        <TextBlock FontFamily="{StaticResource GraduateFont}" Margin="0, 10" 
+                                   Foreground="White" FontSize="16">
+                            <Run Text="Name:"/>
+                            <Run Text="Sam Winchester" Foreground="Wheat"/>
+                        </TextBlock>
+                        <TextBlock FontFamily="{StaticResource GraduateFont}" 
+                                   Foreground="White" FontSize="16" Margin="0, 10">
+                            <Run Text="Access Level:"/>
+                            <Run Text="B" Foreground="Wheat"/>
+                        </TextBlock>
+                        <Button Content="Logout" Style="{StaticResource MenuButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
         </Grid>
     </Grid>

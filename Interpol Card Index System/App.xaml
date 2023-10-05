@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Interpol_Card_Index_System"
              StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="GraduateFont">/Theme/Fonts/Graduate-Regular.ttf #Graduate</FontFamily>
     </Application.Resources>
 </Application>
