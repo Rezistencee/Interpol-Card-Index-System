@@ -85,10 +85,7 @@
     </Window.Resources>
     
     <Window.Background>
-        <LinearGradientBrush StartPoint="0, 1" EndPoint="1, 1">
-            <GradientStop Color="#000000" Offset="0"/>
-            <GradientStop Color="#4D4855" Offset="0.5"/>
-        </LinearGradientBrush>
+        <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
     </Window.Background>
 
     <Window.DataContext>
@@ -101,7 +98,8 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="[ICIS] Login Window" Grid.Row="0" Foreground="White" 
+        <Label Content="[ICIS] Login Window" Grid.Row="0" Foreground="White"
+               FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
                FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Button Content="X" Grid.Row="0" Background="#182B3A" Foreground="White" 
                 Height="40" Width="40" Margin="0"
@@ -109,7 +107,7 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="170" Margin="0, 5">
             <Image VerticalAlignment="Center" HorizontalAlignment="Center" 
-                   Source="https://cdn.coinmooner.com/logo/4744.png?v=1"
+                   Source="pack://application:,,,/Resources/Images/interpol_logo.png"
                    Width="96" Height="96" Margin="0, 10"/>
 
 
