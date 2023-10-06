@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Interpol_Card_Index_System"
              StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
-        <FontFamily x:Key="GraduateFont">/Theme/Fonts/Graduate-Regular.ttf #Graduate</FontFamily>
+        <FontFamily x:Key="GraduateFont">pack://application:,,,/Theme/Fonts/Graduate-Regular.ttf#Graduate</FontFamily>
+        <BitmapImage x:Key="interpol_logo" UriSource="pack://application:,,,/Resources/Images/interpol_logo.png"/>
+
+        <LinearGradientBrush x:Key="ApplicationBackgroundGradient" StartPoint="0, 1" EndPoint="1, 1">
+            <GradientStop Color="#000000" Offset="0"/>
+            <GradientStop Color="#4D4855" Offset="0.5"/>
+        </LinearGradientBrush>
     </Application.Resources>
 </Application>

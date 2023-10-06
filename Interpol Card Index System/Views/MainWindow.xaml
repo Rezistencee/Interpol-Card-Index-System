@@ -8,10 +8,7 @@
         Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
     <Window.Background>
-        <LinearGradientBrush StartPoint="0, 1" EndPoint="1, 1">
-            <GradientStop Color="#000000" Offset="0"/>
-            <GradientStop Color="#4D4855" Offset="0.5"/>
-        </LinearGradientBrush>
+        <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
     </Window.Background>
 
     <Window.Resources>
@@ -54,6 +51,8 @@
         <Label Content="[ICIS] Main Window" Grid.Row="0" Foreground="White" 
                FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
                FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <Image Source="pack://application:,,,/Resources/Images/interpol_logo.png" Width="32" Height="32" 
+               HorizontalAlignment="Center"/>
         <Button Content="X" Grid.Row="0" Background="#182B3A" Foreground="White" 
                 Height="40" Width="40" Margin="0"
                 HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click"/>
@@ -118,7 +117,7 @@
                         <TextBlock FontFamily="{StaticResource GraduateFont}" 
                                    Foreground="White" FontSize="16" Margin="0, 10">
                             <Run Text="Access Level:"/>
-                            <Run Text="B" Foreground="Wheat"/>
+                            <Run Text="A" Foreground="Wheat"/>
                         </TextBlock>
                         <Button Content="Logout" Style="{StaticResource MenuButtonStyle}"/>
                     </StackPanel>

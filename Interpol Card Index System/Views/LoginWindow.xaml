@@ -85,10 +85,7 @@
     </Window.Resources>
     
     <Window.Background>
-        <LinearGradientBrush StartPoint="0, 1" EndPoint="1, 1">
-            <GradientStop Color="#000000" Offset="0"/>
-            <GradientStop Color="#4D4855" Offset="0.5"/>
-        </LinearGradientBrush>
+        <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
     </Window.Background>
 
     <Window.DataContext>
@@ -110,7 +107,7 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="170" Margin="0, 5">
             <Image VerticalAlignment="Center" HorizontalAlignment="Center" 
-                   Source="https://cdn.coinmooner.com/logo/4744.png?v=1"
+                   Source="pack://application:,,,/Resources/Images/interpol_logo.png"
                    Width="96" Height="96" Margin="0, 10"/>
 
 
