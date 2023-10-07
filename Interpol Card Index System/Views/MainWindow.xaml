@@ -112,14 +112,14 @@
                         <TextBlock FontFamily="{StaticResource GraduateFont}" Margin="0, 10" 
                                    Foreground="White" FontSize="16">
                             <Run Text="Name:"/>
-                            <Run Text="Sam Winchester" Foreground="Wheat"/>
+                            <Run Text="{Binding CurrentUserName, Mode=OneWay}" Foreground="Wheat"/>
                         </TextBlock>
                         <TextBlock FontFamily="{StaticResource GraduateFont}" 
                                    Foreground="White" FontSize="16" Margin="0, 10">
                             <Run Text="Access Level:"/>
-                            <Run Text="A" Foreground="Wheat"/>
+                            <Run Text="{Binding CurrentUserAccess, Mode=OneWay}" Foreground="Wheat"/>
                         </TextBlock>
-                        <Button Content="Logout" Style="{StaticResource MenuButtonStyle}"/>
+                        <Button Content="Logout" Style="{StaticResource MenuButtonStyle}" Command="{Binding LogoutCommand}"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>

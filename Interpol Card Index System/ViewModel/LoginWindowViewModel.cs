@@ -1,5 +1,6 @@
 ﻿using Interpol_Card_Index_System.Commands;
 using Interpol_Card_Index_System.Models;
+using Interpol_Card_Index_System.Services;
 using Interpol_Card_Index_System.Views;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,7 @@ namespace Interpol_Card_Index_System.ViewModel
             if (user != null)
             {
                 MessageBox.Show($"You authorized in system as a {user.Name}!");
+                SessionService.Instance.CurrentUser = user;
 
                 Views.MainWindow mainWindow = new Views.MainWindow();
                 mainWindow.Show();
