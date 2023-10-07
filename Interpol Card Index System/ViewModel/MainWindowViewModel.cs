@@ -1,4 +1,5 @@
 ﻿using Interpol_Card_Index_System.Commands;
+using Interpol_Card_Index_System.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace Interpol_Card_Index_System.ViewModel
@@ -41,6 +43,9 @@ namespace Interpol_Card_Index_System.ViewModel
             }
         }
 
+        public string CurrentUserName => SessionService.Instance.CurrentUser.Name;
+        public char CurrentUserAccess => SessionService.Instance.CurrentUser.AccessLevel;
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             UpdateCurrentDateTime();
@@ -53,13 +58,16 @@ namespace Interpol_Card_Index_System.ViewModel
 
         private void Logout(object parameter)
         {
-            return;
+            SessionService.Instance.ResetSession();
+            Views.LoginWindow loginWindow = new Views.LoginWindow();
+            loginWindow.Show();
+
+            Application.Current.MainWindow.Close();
         }
 
-        //TODO: check if user instance in session not NULL.
         private bool CanLogout()
         {
-            return true;
+            return SessionService.Instance.CurrentUser != null ? true : false;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
