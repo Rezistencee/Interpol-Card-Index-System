@@ -8,6 +8,9 @@ namespace Interpol_Card_Index_System.ViewModel
 {
     public class CriminalGroupsViewModel
     {
+        public CriminalGroupsViewModel()
+        {
 
+        }
     }
 }

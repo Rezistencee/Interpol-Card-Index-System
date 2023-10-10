@@ -73,7 +73,7 @@
                 </StackPanel.Background>
 
                 <Button Content="Criminals" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Crime groups" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Crime groups" Style="{StaticResource MenuButtonStyle}" Command="{Binding ShowCriminalGroupWindow}"/>
                 <Button Content="Agents" Style="{StaticResource MenuButtonStyle}"/>
             </StackPanel>
 

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.ViewModel"
         mc:Ignorable="d"
-        Title="CriminalGroupsWindow" Height="450" Width="800">
+        Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
+        MouseDown="Window_MouseDown">
     <Window.Background>
         <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
     </Window.Background>
@@ -29,6 +30,99 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="PART_BottomLine" Property="Fill" Value="#463F4E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Grid Background="#4D4855">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="#4D4855"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#585858"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <!-- Style for selected cell -->
+        <Style x:Key="DataGridCellSelectedStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="#4D4855"/>
+            <Setter Property="BorderBrush" Value="#585858"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <!-- Background cell animation -->
+        <Style TargetType="DataGridCell" x:Key="DataGridCellHoverStyle">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#372F3C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль для DataGrid -->
+        <Style TargetType="DataGrid" x:Key="CustomDataGridStyle">
+            <Setter Property="Background" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="RowBackground" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource ApplicationBackgroundGradient}" />
+        </Style>
+
+        <Style x:Key="AddButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource GraduateFont}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="0, 10"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" 
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                    To="#00546B" Duration="0:0:1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" 
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                    To="#007ACC" Duration="0:0:1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -77,6 +171,35 @@
             </StackPanel>
 
             <!--Main content section here -->
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="2" Style="{StaticResource AddButtonStyle}" 
+                        Content="Add" FontSize="18" FontFamily="{StaticResource GraduateFont}" 
+                        Height="40" Margin="20" VerticalAlignment="Bottom"/>
+
+                <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+                        CellStyle="{StaticResource DataGridCellStyle}"
+                        ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                        RowHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                        Grid.Row="1" Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Group name" Width="*"/>
+                        <DataGridTextColumn Header="Leader" Width="*"/>
+                        <DataGridTextColumn Header="Activity" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
