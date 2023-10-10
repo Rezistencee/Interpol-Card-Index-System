@@ -18,10 +18,12 @@ namespace Interpol_Card_Index_System.ViewModel
         private DispatcherTimer _timer;
 
         public RelayCommand LogoutCommand { get; private set; }
+        public RelayCommand ShowCriminalGroupWindow { get; private set; }
 
         public MainWindowViewModel()
         {
             LogoutCommand = new RelayCommand(Logout, CanLogout);
+            ShowCriminalGroupWindow = new RelayCommand(CrimeWindowOpen);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
@@ -54,6 +56,14 @@ namespace Interpol_Card_Index_System.ViewModel
         private void UpdateCurrentDateTime()
         {
             CurrentDateAndTime = DateTime.Now.ToString();
+        }
+
+        private void CrimeWindowOpen(object parameter)
+        {
+            Views.CriminalGroupsWindow criminalGroupsWindow = new Views.CriminalGroupsWindow();
+            criminalGroupsWindow.Show();
+
+            Application.Current.MainWindow.Close();
         }
 
         private void Logout(object parameter)
