@@ -72,7 +72,7 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
 
-                <Button Content="Criminals" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Criminals" Style="{StaticResource MenuButtonStyle}" Command="{Binding ShowCriminalWindow}"/>
                 <Button Content="Crime groups" Style="{StaticResource MenuButtonStyle}" Command="{Binding ShowCriminalGroupWindow}"/>
                 <Button Content="Agents" Style="{StaticResource MenuButtonStyle}"/>
             </StackPanel>
