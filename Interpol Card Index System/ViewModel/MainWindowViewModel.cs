@@ -19,11 +19,13 @@ namespace Interpol_Card_Index_System.ViewModel
 
         public RelayCommand LogoutCommand { get; private set; }
         public RelayCommand ShowCriminalGroupWindow { get; private set; }
+        public RelayCommand ShowCriminalWindow { get; private set; }
 
         public MainWindowViewModel()
         {
             LogoutCommand = new RelayCommand(Logout, CanLogout);
             ShowCriminalGroupWindow = new RelayCommand(CrimeWindowOpen);
+            ShowCriminalWindow = new RelayCommand(CriminalWindowOpen);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
@@ -62,6 +64,14 @@ namespace Interpol_Card_Index_System.ViewModel
         {
             Views.CriminalGroupsWindow criminalGroupsWindow = new Views.CriminalGroupsWindow();
             criminalGroupsWindow.Show();
+
+            Application.Current.MainWindow.Close();
+        }
+
+        private void CriminalWindowOpen(object parameter)
+        {
+            Views.CriminalWindow criminalWindow = new Views.CriminalWindow();
+            criminalWindow.Show();
 
             Application.Current.MainWindow.Close();
         }

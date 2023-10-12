@@ -1,9 +1,9 @@
-﻿<Window x:Class="Interpol_Card_Index_System.Views.CriminalGroupsWindow"
+﻿<Window x:Class="Interpol_Card_Index_System.Views.CriminalWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.ViewModel"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
         mc:Ignorable="d"
         Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
@@ -130,17 +130,13 @@
         </Style>
     </Window.Resources>
 
-    <Window.DataContext>
-        <local1:CriminalGroupsViewModel/>
-    </Window.DataContext>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="[ICIS] Criminal Groups" Grid.Row="0" Foreground="White" 
+        <Label Content="[ICIS] Criminals" Grid.Row="0" Foreground="White" 
                FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
                FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Image Source="pack://application:,,,/Resources/Images/interpol_logo.png" Width="32" Height="32" 
@@ -165,7 +161,7 @@
                 </StackPanel.Background>
 
                 <Button Content="Main" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Criminals" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Crime Groups" Style="{StaticResource MenuButtonStyle}"/>
                 <Button Content="Agents" Style="{StaticResource MenuButtonStyle}"/>
             </StackPanel>
 
@@ -174,7 +170,7 @@
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -193,9 +189,17 @@
                         RowHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                         Grid.Row="1" Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Group name" Width="*"/>
-                        <DataGridTextColumn Header="Leader" Width="*"/>
-                        <DataGridTextColumn Header="Activity" Width="*"/>
+                        <DataGridTextColumn Header="Name" Width="*"/>
+                        <DataGridTextColumn Header="Nickname" Width="*"/>
+                        <DataGridTextColumn Header="Date of Birth" Width="*"/>
+                        <DataGridTextColumn Header="Nationality" Width="*"/>
+                        <DataGridTemplateColumn Header="Action" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Подробности"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
