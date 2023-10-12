@@ -17,8 +17,6 @@ namespace Interpol_Card_Index_System.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private List<User> _users;
-
         private string _username;
         public string Username
         {
@@ -52,12 +50,6 @@ namespace Interpol_Card_Index_System.ViewModel
         public LoginWindowViewModel()
         {
             LoginCommand = new RelayCommand(Login, CanLogin);
-
-            _users = new List<User>
-            {
-                new User() {Name = "Alex Winchester", Login = "Test123", Password = "qwerty123", AccessLevel = 'A'},
-                new User() {Name = "Sam Winchester", Login = "Test2546", Password = "qwerty1234", AccessLevel = 'A'}
-            };
         }
 
         private bool CanLogin()
@@ -87,7 +79,7 @@ namespace Interpol_Card_Index_System.ViewModel
 
         private User FindUser(string username, string password)
         {
-            return _users.Find(u => u.Login == username && u.Password == password);
+            return RepositoryService.Instance.Users.ToList().Find(u => u.Login == username && u.Password == password);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

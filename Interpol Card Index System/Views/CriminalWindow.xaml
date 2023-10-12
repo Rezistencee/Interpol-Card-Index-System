@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.ViewModel"
         mc:Ignorable="d"
         Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
@@ -51,11 +51,26 @@
             </Setter>
         </Style>
 
+        <Style x:Key="DataGridRowHeaderStyle" TargetType="DataGridRowHeader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridRowHeader">
+                        <Grid Background="#4D4855">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
             <Setter Property="Background" Value="#4D4855"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#585858"/>
             <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="FontSize" Value="15"/>
             <Setter Property="Padding" Value="10"/>
         </Style>
 
@@ -130,6 +145,10 @@
         </Style>
     </Window.Resources>
 
+    <Window.DataContext>
+        <local1:CriminalWindowViewModel/>
+    </Window.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -184,19 +203,20 @@
                         Height="40" Margin="20" VerticalAlignment="Bottom"/>
 
                 <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+                          ItemsSource="{Binding Criminals}"
                         CellStyle="{StaticResource DataGridCellStyle}"
                         ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                        RowHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                        Grid.Row="1" Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False">
+                        RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}"
+                        Grid.Row="1" Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Width="*"/>
-                        <DataGridTextColumn Header="Nickname" Width="*"/>
-                        <DataGridTextColumn Header="Date of Birth" Width="*"/>
-                        <DataGridTextColumn Header="Nationality" Width="*"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Nickname" Binding="{Binding Alias}" Width="*"/>
+                        <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth}" Width="*"/>
+                        <DataGridTextColumn Header="Nationality" Binding="{Binding Nationality}" Width="*"/>
                         <DataGridTemplateColumn Header="Action" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Подробности"/>
+                                    <Button Content="Details"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
