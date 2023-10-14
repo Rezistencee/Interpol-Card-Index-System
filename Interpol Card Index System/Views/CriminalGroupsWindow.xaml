@@ -51,12 +51,41 @@
             </Setter>
         </Style>
 
+        <Style x:Key="DataGridRowHeaderStyle" TargetType="DataGridRowHeader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridRowHeader">
+                        <Grid Background="#4D4855">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
             <Setter Property="Background" Value="#4D4855"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#585858"/>
             <Setter Property="BorderThickness" Value="0,0,1,1"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}"
+                    SnapsToDevicePixels="True">
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <!-- Style for selected cell -->
@@ -128,6 +157,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -184,18 +218,49 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="2" Style="{StaticResource AddButtonStyle}" 
+                        Command="{Binding AddCrimeGroup}"
                         Content="Add" FontSize="18" FontFamily="{StaticResource GraduateFont}" 
                         Height="40" Margin="20" VerticalAlignment="Bottom"/>
 
                 <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+                          ItemsSource="{Binding CriminalGroups}"
                         CellStyle="{StaticResource DataGridCellStyle}"
                         ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                        RowHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                        Grid.Row="1" Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False">
+                        RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}"
+                        Grid.Row="1" RowHeight="30"
+                        Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Group name" Width="*"/>
-                        <DataGridTextColumn Header="Leader" Width="*"/>
-                        <DataGridTextColumn Header="Activity" Width="*"/>
+                        <DataGridTextColumn Header="Group name" Width="*" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Leader" Width="*" Binding="{Binding Leader}"/>
+
+                        <DataGridTemplateColumn Header="Activities" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding Activities}" SelectedIndex="0"
+                                              Style="{StaticResource ComboBoxStyle}"
+                                        SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Countries" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding Countries}" SelectedIndex="0"
+                                              Style="{StaticResource ComboBoxStyle}"
+                                        SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Details" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Details" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

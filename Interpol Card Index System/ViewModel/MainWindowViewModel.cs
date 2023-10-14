@@ -51,6 +51,7 @@ namespace Interpol_Card_Index_System.ViewModel
         public char CurrentUserAccess => SessionService.Instance.CurrentUser.AccessLevel;
 
         public int CriminalsCount => RepositoryService.Instance.Criminals.Count;
+        public int CriminalGroupsCount => RepositoryService.Instance.CriminalGroups.Count;
 
         private void Timer_Tick(object sender, EventArgs e)
         {

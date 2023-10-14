@@ -97,7 +97,7 @@
                             </TextBlock>
                             <TextBlock Margin="5, 15" Foreground="White" FontFamily="{StaticResource GraduateFont}" FontSize="14">
                                 <Run Text="Crime groups count: " />
-                                <Run Text="{Binding CrimeGroupsCount, Mode=OneWay}" Foreground="Wheat"/>
+                                <Run Text="{Binding CriminalGroupsCount, Mode=OneWay}" Foreground="Wheat"/>
                             </TextBlock>
                             <TextBlock Margin="5, 15" Foreground="White" FontFamily="{StaticResource GraduateFont}" FontSize="14">
                                 <Run Text="Agents count: " />

@@ -15,6 +15,7 @@ namespace Interpol_Card_Index_System.Services
 
         private ObservableCollection<User> _usersList;
         private ObservableCollection<Criminal> _criminalsList;
+        private ObservableCollection<CriminalGroup> _crimeGroups;
 
         public ObservableCollection<User> Users
         {
@@ -32,11 +33,24 @@ namespace Interpol_Card_Index_System.Services
             }
         }
 
+        public ObservableCollection<CriminalGroup> CriminalGroups
+        {
+            get
+            {
+                return _crimeGroups;
+            }
+        }
+
         private RepositoryService() {
             _usersList = new ObservableCollection<User>()
             {
                 new User() {Name = "Alex Winchester", Login = "Test123", Password = "qwerty123", AccessLevel = 'A'},
                 new User() {Name = "Sam Winchester", Login = "Test2546", Password = "qwerty1234", AccessLevel = 'A'}
+            };
+
+            _crimeGroups = new ObservableCollection<CriminalGroup>()
+            {
+                new CriminalGroup("Sierra", "El Gato", new List<string>() {"Killers", "Drugs"}, new List<string>() {"USA", "Spain" })
             };
 
             _criminalsList = new ObservableCollection<Criminal>
@@ -55,5 +69,10 @@ namespace Interpol_Card_Index_System.Services
         {
             _criminalsList.Add(criminalInstance);
         }
+
+        public void AddCriminalGroup(CriminalGroup criminalGroupInstance)
+        {
+            _crimeGroups.Add(criminalGroupInstance);
+        } 
     }
 }
