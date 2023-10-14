@@ -50,6 +50,8 @@ namespace Interpol_Card_Index_System.ViewModel
         public string CurrentUserName => SessionService.Instance.CurrentUser.Name;
         public char CurrentUserAccess => SessionService.Instance.CurrentUser.AccessLevel;
 
+        public int CriminalsCount => RepositoryService.Instance.Criminals.Count;
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             UpdateCurrentDateTime();

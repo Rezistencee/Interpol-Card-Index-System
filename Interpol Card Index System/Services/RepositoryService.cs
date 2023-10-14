@@ -41,7 +41,8 @@ namespace Interpol_Card_Index_System.Services
 
             _criminalsList = new ObservableCollection<Criminal>
             {
-                new Criminal() {FullName = "Jack Sparrow", Alias = "Sparrow", DateOfBirth = DateTime.Parse("12.10.1982"), Nationality = "Ukrainian"}
+                new Criminal() {FullName = "Jack Sparrow", Alias = "Sparrow", DateOfBirth = DateTime.Parse("12.10.1982"), Nationality = "Ukrainian"},
+                new Criminal() {FullName = "Ryan Gosling", Alias = "Sierra-6", DateOfBirth = DateTime.Parse("24.07.1994"), Nationality = "USA"}
             };
         }
 
