@@ -18,6 +18,11 @@ namespace Interpol_Card_Index_System.Models
         public List<string> Countries { get; set; }
         #endregion
 
+        public CriminalGroup()
+        {
+            ID = _nextId++;
+        }
+
         public CriminalGroup(string name, string leader, List<string> activities, List<string> countries)
         {
             ID = _nextId++;
