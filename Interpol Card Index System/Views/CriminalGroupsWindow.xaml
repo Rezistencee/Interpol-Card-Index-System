@@ -237,8 +237,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding Activities}" SelectedIndex="0"
-                                              Style="{StaticResource ComboBoxStyle}"
-                                        SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"/>
+                                              Style="{StaticResource ComboBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -247,8 +246,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding Countries}" SelectedIndex="0"
-                                              Style="{StaticResource ComboBoxStyle}"
-                                        SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" />
+                                              Style="{StaticResource ComboBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
