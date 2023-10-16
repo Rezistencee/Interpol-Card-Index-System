@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Navigation;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,9 @@ namespace Interpol_Card_Index_System.ViewModel
 
         public MainWindowViewModel()
         {
-            LogoutCommand = new RelayCommand(Logout, CanLogout);
-            ShowCriminalGroupWindow = new RelayCommand(CrimeWindowOpen);
-            ShowCriminalWindow = new RelayCommand(CriminalWindowOpen);
+            LogoutCommand = new RelayCommand(Logout, IsUserAuthorized);
+            ShowCriminalGroupWindow = new RelayCommand(CrimeWindowOpen, IsUserAuthorized);
+            ShowCriminalWindow = new RelayCommand(CriminalWindowOpen, IsUserAuthorized);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
@@ -67,28 +68,24 @@ namespace Interpol_Card_Index_System.ViewModel
         {
             Views.CriminalGroupsWindow criminalGroupsWindow = new Views.CriminalGroupsWindow();
             criminalGroupsWindow.Show();
-
-            Application.Current.MainWindow.Close();
         }
 
         private void CriminalWindowOpen(object parameter)
         {
             Views.CriminalWindow criminalWindow = new Views.CriminalWindow();
             criminalWindow.Show();
-
-            Application.Current.MainWindow.Close();
         }
 
         private void Logout(object parameter)
         {
             SessionService.Instance.ResetSession();
             Views.LoginWindow loginWindow = new Views.LoginWindow();
-            loginWindow.Show();
-
             Application.Current.MainWindow.Close();
+
+            loginWindow.Show();
         }
 
-        private bool CanLogout()
+        private bool IsUserAuthorized()
         {
             return SessionService.Instance.CurrentUser != null ? true : false;
         }
