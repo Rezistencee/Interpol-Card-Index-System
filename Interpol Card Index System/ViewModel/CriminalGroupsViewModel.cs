@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Interpol_Card_Index_System.ViewModel
@@ -22,28 +23,21 @@ namespace Interpol_Card_Index_System.ViewModel
             get { return RepositoryService.Instance.CriminalGroups; }
         }
 
-        private string _selectedCountry;
-        public string SelectedCountry
-        {
-            get 
-            { 
-                return _selectedCountry; 
-            }
-            set
-            {
-                if (_selectedCountry != value)
-                {
-                    _selectedCountry = value;
-                    OnPropertyChanged(nameof(SelectedCountry));
-                }
-            }
-        }
-
         public ICommand AddCrimeGroup { get; private set; }
+        public ICommand ViewDetailsCommand { get; private set; }
 
         public CriminalGroupsViewModel()
         {
             AddCrimeGroup = new RelayCommand(AddCriminalGroup);
+            ViewDetailsCommand = new RelayCommand(ViewDetails);
+        }
+
+        private void ViewDetails(object parameter)
+        {
+            if(parameter is CriminalGroup criminalGroup)
+            {
+                MessageBox.Show(criminalGroup.ID.ToString());
+            }
         }
 
         private void AddCriminalGroup(object parameter)

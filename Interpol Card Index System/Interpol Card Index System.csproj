@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\interpol_logo.png" />
+    <None Remove="Theme\Fonts\DramaturgSC.ttf" />
     <None Remove="Theme\Fonts\Graduate-Regular.ttf" />
   </ItemGroup>
 
@@ -17,6 +18,7 @@
     <Resource Include="Resources\Images\interpol_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Theme\Fonts\DramaturgSC.ttf" />
     <Resource Include="Theme\Fonts\Graduate-Regular.ttf" />
   </ItemGroup>
 
