@@ -1,0 +1,77 @@
+﻿<Window x:Class="Interpol_Card_Index_System.Views.Criminal_Information"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        mc:Ignorable="d"
+        Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
+        MouseDown="Window_MouseDown">
+    <Window.Background>
+        <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
+    </Window.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Foreground="White" Margin="10, 0" 
+               FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
+               FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Run Text="Criminal #"/>
+            <Run Text="{Binding ID, Mode=OneWay}"/>
+        </TextBlock>
+        
+        <Image Source="pack://application:,,,/Resources/Images/interpol_logo.png" Width="32" Height="32" 
+               HorizontalAlignment="Center"/>
+        <Button Content="X" Grid.Row="0" Background="#182B3A" Foreground="White" 
+                Height="40" Width="40" Margin="0"
+                HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click"/>
+        
+        <StackPanel Grid.Row="1" Margin="10">
+            <DockPanel HorizontalAlignment="Center">
+                <Image Height="128" Width="128" Stretch="Uniform" IsEnabled="False" Source="{Binding PhotoPath}"/>
+            </DockPanel>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Margin="5, 0">
+                    <TextBlock Text="{Binding FullName, StringFormat=Full Name: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBlock Text="{Binding Alias, StringFormat=Alias: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBlock Text="{Binding DateOfBirth, StringFormat=Date of Birth: {0}}" Foreground="Wheat" FontSize="16"/>
+                    <TextBlock Text="{Binding Nationality, StringFormat=Nationality: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBox Text="{Binding SpecialCharacteristics}" Margin="0, 25" MinHeight="80" AcceptsReturn="True"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="10, 0">
+                    <TextBlock Text="{Binding Gender, StringFormat=Gender: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBlock Text="{Binding HairColor, StringFormat=Hair Color: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBlock Text="{Binding EyeColor}" Foreground="Wheat" FontSize="16"/>
+                    <TextBlock Text="{Binding Height, StringFormat={}{0} m.}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBlock Text="{Binding Weight, StringFormat={}{0} kg.}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
+                    <TextBox Text="{Binding CrimeDescription}" Margin="0, 5" MinHeight="80" AcceptsReturn="True"/>
+
+                    <StackPanel HorizontalAlignment="Right">
+                        <Button Width="60" Height="50" 
+                                FontSize="14" Foreground="Black">
+                            <Button.Content>
+                                <Viewbox Width="32" Height="32">
+                                    <Canvas Width="20" Height="20">
+                                        <Path Fill="Red" Data="M4.5 11H4v1h.5a.5.5 0 0 0 0-1ZM7 5V.13a2.96 2.96 0 0 0-1.293.749L2.879 3.707A2.96 2.96 0 0 0 2.13 5H7Zm3.375 6H10v3h.375a.624.624 0 0 0 .625-.625v-1.75a.624.624 0 0 0-.625-.625Z"/>
+                                        <Path Fill="Red" Data="M19 7h-1V2a1.97 1.97 0 0 0-1.933-2H9v5a2 2 0 0 1-2 2H1a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h1a1.969 1.969 0 0 0 1.933 2h12.134c1.1 0 1.7-1.236 1.856-1.614a.988.988 0 0 0 .07-.386H19a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1ZM4.5 14H4v1a1 1 0 1 1-2 0v-5a1 1 0 0 1 1-1h1.5a2.5 2.5 0 1 1 0 5Zm8.5-.625A2.63 2.63 0 0 1 10.375 16H9a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h1.375A2.63 2.63 0 0 1 13 11.625v1.75ZM17 12a1 1 0 0 1 0 2h-1v1a1 1 0 0 1-2 0v-5a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-1v1h1Z"/>
+                                    </Canvas>
+                                </Viewbox>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
