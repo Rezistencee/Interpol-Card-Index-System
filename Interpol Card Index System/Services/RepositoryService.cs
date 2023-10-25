@@ -52,7 +52,7 @@ namespace Interpol_Card_Index_System.Services
 
             _crimeGroups = new ObservableCollection<CriminalGroup>()
             {
-                new CriminalGroup("Sierra", "El Gato", new List<string>() {"Killers", "Drugs"}, new List<string>() {"USA", "Spain" })
+                new CriminalGroup("Sierra", "El Gato", new List<string>() {"Killers", "Drugs"}, new List<string>() {"USA", "Spain" }, "Lorem ipsum...")
             };
 
             _criminalsList = new ObservableCollection<Criminal>

@@ -1,6 +1,7 @@
 ﻿using Interpol_Card_Index_System.Commands;
 using Interpol_Card_Index_System.Models;
 using Interpol_Card_Index_System.Services;
+using Interpol_Card_Index_System.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,7 +37,9 @@ namespace Interpol_Card_Index_System.ViewModel
         {
             if(parameter is CriminalGroup criminalGroup)
             {
-                MessageBox.Show(criminalGroup.ID.ToString());
+                CriminalGroup_Information criminalGroupView = new CriminalGroup_Information(criminalGroup);
+
+                criminalGroupView.Show();
             }
         }
 
