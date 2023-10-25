@@ -14,6 +14,7 @@ namespace Interpol_Card_Index_System.Models
         public int ID { get; }
         public string Name { get; set; }
         public string Leader { get; set; }
+        public string Description { get; set; }
         public List<string> Activities { get; set; }
         public List<string> Countries { get; set; }
         #endregion
@@ -30,6 +31,16 @@ namespace Interpol_Card_Index_System.Models
             Leader = leader;
             Activities = activities;
             Countries = countries;
+        }
+
+        public CriminalGroup(string name, string leader, List<string> activities, List<string> countries, string description)
+        {
+            ID = _nextId++;
+            Name = name;
+            Leader = leader;
+            Activities = activities;
+            Countries = countries;
+            Description = description;
         }
     }
 }

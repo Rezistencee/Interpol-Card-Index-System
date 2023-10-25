@@ -12,5 +12,30 @@
             <GradientStop Color="#000000" Offset="0"/>
             <GradientStop Color="#4D4855" Offset="0.5"/>
         </LinearGradientBrush>
+
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{DynamicResource GraduateFont}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="0, 10"/>
+            <Setter Property="Background" Value="#372F3C"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="PART_BottomLine" Fill="{TemplateBinding Background}" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PART_BottomLine" Property="Fill" Value="#463F4E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -23,6 +23,7 @@ namespace Interpol_Card_Index_System.Models
         public string SpecialCharacteristics { get; set; }
         public string CrimeDescription { get; set; }
         public string PhotoPath { get; set; }
+        public char AccessLevel { get; set; }
 
         public Criminal()
         {
