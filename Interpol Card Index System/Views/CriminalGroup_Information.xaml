@@ -11,6 +11,12 @@
         <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
     </Window.Background>
 
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0, 10"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -38,12 +44,16 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Margin="5, 0">
-                    <TextBlock Text="{Binding Name, StringFormat=Name: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
-                    <TextBlock Text="{Binding Leader, StringFormat=Leader: {0}}" Foreground="Wheat" Background="Transparent" FontSize="16"/>
-                    <TextBlock Text="Activities: " Foreground="Wheat" FontSize="18"/>
+                    <TextBlock Text="{Binding Name, StringFormat=Name: {0}}" Foreground="Wheat" Background="Transparent" 
+                               FontSize="16" FontFamily="{StaticResource GraduateFont}"/>
+                    <TextBlock Text="{Binding Leader, StringFormat=Leader: {0}}" Foreground="Wheat" Background="Transparent" 
+                               FontSize="16" FontFamily="{StaticResource GraduateFont}"/>
+                    <Separator/>
+                    <TextBlock Text="Activities: " FontFamily="{StaticResource GraduateFont}" Foreground="Wheat" FontSize="18"/>
                     <ComboBox ItemsSource="{Binding Activities}" SelectedIndex="0" MinWidth="120"
                               Foreground="Black" FontSize="16" Margin="0, 10"/>
-                    <TextBlock Text="Countries: " Foreground="Wheat" FontSize="18"/>
+                    <TextBlock Text="Countries: " Foreground="Wheat" 
+                               FontSize="18" FontFamily="{StaticResource GraduateFont}"/>
                     <ComboBox ItemsSource="{Binding Countries}" SelectedIndex="0" MinWidth="120" 
                               Foreground="Black" FontSize="16" Margin="0, 10"/>
                 </StackPanel>

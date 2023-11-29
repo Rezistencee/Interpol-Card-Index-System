@@ -19,18 +19,46 @@ namespace Interpol_Card_Index_System.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private CollectionFilter<CriminalGroup> _filteredCriminalGroups;
+        private string _groupNameFilterText;
+
         public ObservableCollection<CriminalGroup> CriminalGroups
         {
             get { return RepositoryService.Instance.CriminalGroups; }
         }
 
+        public CollectionFilter<CriminalGroup> FilteredCriminalGroups
+        {
+            get => _filteredCriminalGroups;
+            set
+            {
+                _filteredCriminalGroups = value;
+                OnPropertyChanged(nameof(FilteredCriminalGroups));
+            }
+        }
+
+        public string GroupNameFilterText
+        {
+            get => _groupNameFilterText;
+            set
+            {
+                _groupNameFilterText = value;
+                OnPropertyChanged(nameof(GroupNameFilterText));
+                FilterCommand.Execute(null);
+            }
+        }
+
         public ICommand AddCrimeGroup { get; private set; }
         public ICommand ViewDetailsCommand { get; private set; }
+        public ICommand FilterCommand { get; private set; }
 
         public CriminalGroupsViewModel()
         {
+            _filteredCriminalGroups = new CollectionFilter<CriminalGroup>(CriminalGroups);
+
             AddCrimeGroup = new RelayCommand(AddCriminalGroup);
             ViewDetailsCommand = new RelayCommand(ViewDetails);
+            FilterCommand = new RelayCommand(Filter);
         }
 
         private void ViewDetails(object parameter)
@@ -48,6 +76,13 @@ namespace Interpol_Card_Index_System.ViewModel
             CriminalGroup newCriminalGroup = new CriminalGroup("Bloods", "Shug Nite", new List<string>() { "Killers", "Drugs" }, new List<string>() { "USA", "Spain" });
 
             RepositoryService.Instance.AddCriminalGroup(newCriminalGroup);
+        }
+
+        private void Filter(object parameter)
+        {
+            _filteredCriminalGroups.AddFilter(criminalGroup => criminalGroup.Name.Contains(GroupNameFilterText));
+
+            OnPropertyChanged(nameof(GroupNameFilterText));
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
