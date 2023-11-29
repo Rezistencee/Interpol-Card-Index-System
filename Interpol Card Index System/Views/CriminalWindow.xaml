@@ -157,6 +157,47 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+
+        <Style TargetType="TextBox" x:Key="SearchTextBox">
+            <Setter Property="Padding" Value="15,2,2,2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Bisque"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Viewbox Width="24" Height="24" Margin="2, 0, 0, 0">
+                                    <Canvas Width="20" Height="20">
+                                        <Path Fill="White" Data="M8 15.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Zm11.707 2.793-4-4a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414-1.414Z"/>
+                                    </Canvas>
+                                </Viewbox>
+
+                                <Border Grid.Column="0" Width="2" Background="Gray" Margin="40,0,0,0"/>
+
+                                <ScrollViewer x:Name="PART_ContentHost" Grid.Column="1" Margin="0,0,2,0" VerticalAlignment="Center" Focusable="false"/>
+
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -212,12 +253,16 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <TextBox Width="180" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+                         Style="{StaticResource SearchTextBox}" Margin="0, 10" 
+                         Text="{Binding NameFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+
                 <Button Grid.Column="2" Style="{StaticResource AddButtonStyle}" 
                         Content="Add" FontSize="18" FontFamily="{StaticResource GraduateFont}" 
                         Height="40" Margin="20" VerticalAlignment="Bottom"/>
 
                 <DataGrid Style="{StaticResource CustomDataGridStyle}" 
-                          ItemsSource="{Binding Criminals}"
+                          ItemsSource="{Binding FilteredCriminals}"
                         CellStyle="{StaticResource DataGridCellStyle}"
                         ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                         RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}"
@@ -226,12 +271,12 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*"/>
                         <DataGridTextColumn Header="AKA" Binding="{Binding Alias}" Width="*"/>
-                        <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth}" Width="*"/>
+                        <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth, StringFormat=Y}" Width="*"/>
                         <DataGridTextColumn Header="Nationality" Binding="{Binding Nationality}" Width="*"/>
                         <DataGridTemplateColumn Header="Action" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Details" MinWidth="80" Command="{Binding Path=DataContext.ViewDetailsCommand,       
+                                    <Button Content="Details" MinWidth="90" Command="{Binding Path=DataContext.ViewDetailsCommand,       
                                          RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                          CommandParameter="{Binding}"/>
                                 </DataTemplate>

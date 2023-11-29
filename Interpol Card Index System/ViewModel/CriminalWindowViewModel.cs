@@ -19,18 +19,47 @@ namespace Interpol_Card_Index_System.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private CollectionFilter<Criminal> _filteredCriminals;
+        private string _nameFilterText;
+
         public ObservableCollection<Criminal> Criminals
         {
             get { return RepositoryService.Instance.Criminals; }
         }
 
+        public CollectionFilter<Criminal> FilteredCriminals
+        {
+            get => _filteredCriminals;
+            set
+            {
+                _filteredCriminals = value;
+                OnPropertyChanged(nameof(FilteredCriminals));
+            }
+        }
+
+        public string NameFilterText
+        {
+            get => _nameFilterText;
+            set
+            {
+                _nameFilterText = value;
+                OnPropertyChanged(nameof(NameFilterText));
+                FilterCommand.Execute(null);
+            }
+        }
+
         public ICommand AddCriminalCommand { get; private set; }
         public ICommand ViewDetailsCommand { get; private set; }
+        public ICommand FilterCommand { get; private set; }
 
         public CriminalWindowViewModel()
         {
+            _filteredCriminals = new CollectionFilter<Criminal>(Criminals);
+
             AddCriminalCommand = new RelayCommand(AddCriminal);
             ViewDetailsCommand = new RelayCommand(ViewDetails);
+
+            FilterCommand = new RelayCommand(Filter);
         }
 
         private void ViewDetails(object parameter)
@@ -54,6 +83,13 @@ namespace Interpol_Card_Index_System.ViewModel
             Criminal newCriminal = new Criminal();
 
             RepositoryService.Instance.AddCriminal(newCriminal);
+        }
+
+        private void Filter(object parameter)
+        {
+            _filteredCriminals.AddFilter(criminal => criminal.FullName.Contains(NameFilterText));
+
+            OnPropertyChanged(nameof(NameFilterText));
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
