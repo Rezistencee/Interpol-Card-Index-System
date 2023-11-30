@@ -456,7 +456,7 @@
                         <DataGridTemplateColumn Header="Details" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Details" MinWidth="80" Command="{Binding Path=DataContext.ViewDetailsCommand,       
+                                    <Button Content="Details" MinWidth="90" Command="{Binding Path=DataContext.ViewDetailsCommand,       
                                          RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                          CommandParameter="{Binding}"/>
                                 </DataTemplate>

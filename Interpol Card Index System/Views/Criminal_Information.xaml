@@ -11,6 +11,19 @@
         <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
     </Window.Background>
 
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#2C3E50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#34495E"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="FontFamily" Value="{StaticResource DramaturgSC}"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,7 +45,8 @@
         
         <StackPanel Grid.Row="1" Margin="10">
             <DockPanel HorizontalAlignment="Center">
-                <Image Height="128" Width="128" Stretch="Uniform" IsEnabled="False" Source="{Binding PhotoPath}"/>
+                <Image Height="128" Width="128" Stretch="Uniform" IsEnabled="False" 
+                       Source="{Binding PhotoPath}"/>
             </DockPanel>
             
             <Grid>
