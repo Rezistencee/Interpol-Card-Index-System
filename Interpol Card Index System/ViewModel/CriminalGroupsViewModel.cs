@@ -73,9 +73,9 @@ namespace Interpol_Card_Index_System.ViewModel
 
         private void AddCriminalGroup(object parameter)
         {
-            CriminalGroup newCriminalGroup = new CriminalGroup("Bloods", "Shug Nite", new List<string>() { "Killers", "Drugs" }, new List<string>() { "USA", "Spain" });
+            AddNewCriminalGroup addNewCriminalGroupWindow = new AddNewCriminalGroup();
 
-            RepositoryService.Instance.AddCriminalGroup(newCriminalGroup);
+            addNewCriminalGroupWindow.Show();
         }
 
         private void Filter(object parameter)
