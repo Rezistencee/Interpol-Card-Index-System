@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.Services.Converters"
         mc:Ignorable="d"
         Height="450" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
@@ -12,6 +12,8 @@
     </Window.Background>
 
     <Window.Resources>
+        <local1:RadioButtonToBooleanConverter x:Key="RadioButtonToBooleanConverter"/>
+
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="10, 5"/>
             <Setter Property="Foreground" Value="Wheat"/>
@@ -23,6 +25,15 @@
             <Setter Property="Margin" Value="10, 5"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="{StaticResource DramaturgSC}"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="Crimson" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="RadioButton">
@@ -75,66 +86,127 @@
             <StackPanel>
                 <StackPanel>
                     <TextBlock Text="Fullname:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.FullName">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Alias:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.Alias">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Birthday:"/>
-                    <DatePicker/>
+                    <DatePicker SelectedDate="{Binding SelectedBirthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Nationality:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.Nationality">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Gender:"/>
 
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Male" Foreground="White" GroupName="gender"/>
-                        <RadioButton Content="Female" Foreground="White" GroupName="gender"/>
+                        <RadioButton Content="Male" Foreground="White" GroupName="gender"
+                            IsChecked="{Binding SelectedGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            Converter={StaticResource RadioButtonToBooleanConverter}, ConverterParameter=Male}" />
+                        <RadioButton Content="Female" Foreground="White" GroupName="gender"
+                            IsChecked="{Binding SelectedGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            Converter={StaticResource RadioButtonToBooleanConverter}, ConverterParameter=Female}" />
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Hair color:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.HairColor">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
-                <StackPanel>
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Photo:"/>
                     <Border Width="128" Height="128" BorderBrush="White" BorderThickness="1">
-                        <Image/>
+                        <Button Background="Transparent" Command="{Binding OpenImageCommand}"/>
                     </Border>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Eye color:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.EyeColor">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Height:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.Height">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Weight:"/>
-                    <TextBox/>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="NewCriminal.Weight">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Content="Confirm" Style="{StaticResource MenuButtonStyle}" Margin="10, 0"/>
+                <Button Content="Confirm" Style="{StaticResource MenuButtonStyle}" Command="{Binding ConfirmCommand}" 
+                        Margin="10, 0"/>
                 <Button Content="Cancel" Style="{StaticResource MenuButtonStyle}" Click="Button_Click"/>
             </StackPanel>
         </Grid>

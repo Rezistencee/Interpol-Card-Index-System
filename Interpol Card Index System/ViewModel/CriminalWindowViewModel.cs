@@ -80,9 +80,14 @@ namespace Interpol_Card_Index_System.ViewModel
 
         private void AddCriminal(object parameter)
         {
+            AddNewCriminalViewModel targetView = new AddNewCriminalViewModel();
             AddNewCriminal addNewCriminalWindow = new AddNewCriminal();
-            
-            addNewCriminalWindow.Show();
+            addNewCriminalWindow.DataContext = targetView;
+
+            addNewCriminalWindow.ShowDialog();
+
+            if(targetView.IsResult)
+                RepositoryService.Instance.AddCriminal(targetView.NewCriminal);
         }
 
         private void Filter(object parameter)

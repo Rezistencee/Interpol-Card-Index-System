@@ -32,7 +32,8 @@
         
         <StackPanel Grid.Row="1" Margin="10">
             <DockPanel HorizontalAlignment="Center">
-                <Image Height="128" Width="128" Stretch="Uniform" IsEnabled="False" Source="{Binding PhotoPath}"/>
+                <Image Height="128" Width="128" Stretch="Uniform" IsEnabled="False" 
+                       Source="{Binding PhotoPath}"/>
             </DockPanel>
             
             <Grid>
