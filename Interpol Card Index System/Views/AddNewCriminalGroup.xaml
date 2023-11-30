@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views" xmlns:local1="clr-namespace:Interpol_Card_Index_System.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Height="400" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         MouseDown="Window_MouseDown">
@@ -78,47 +78,48 @@
             <StackPanel>
                 <StackPanel>
                     <TextBlock Text="Group name:"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding NewCriminalGroup.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Leader:"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding NewCriminalGroup.Leader, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Description:"/>
-                    <TextBox Height="120" AcceptsReturn="True"/>
+                    <TextBox Text="{Binding NewCriminalGroup.Description, UpdateSourceTrigger=PropertyChanged}" 
+                             Height="120" AcceptsReturn="True"/>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
                 <StackPanel>
                     <TextBlock Text="Activities:"/>
-                    <ListBox x:Name="activitiesListBox" SelectionMode="Multiple">
-                        <ListBox.Items>
-                            <ListBoxItem>Значение 1</ListBoxItem>
-                            <ListBoxItem>Значение 2</ListBoxItem>
-                            <ListBoxItem>Значение 3</ListBoxItem>
-                        </ListBox.Items>
+                    <ListBox x:Name="activitiesListView" SelectionMode="Multiple" ItemsSource="{Binding AllActivities}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionActivitiesChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=activitiesListView}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ListBox>
                 </StackPanel>
                 
                 <StackPanel>
                     <TextBlock Text="Countries:"/>
-                    <ListBox x:Name="countriesListBox" SelectionMode="Multiple">
-                        <ListBox.Items>
-                            <ListBoxItem>Значение 1</ListBoxItem>
-                            <ListBoxItem>Значение 2</ListBoxItem>
-                            <ListBoxItem>Значение 3</ListBoxItem>
-                        </ListBox.Items>
+                    <ListBox x:Name="countriesListBox" SelectionMode="Multiple" ItemsSource="{Binding AllCountries}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionCountriesChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=countriesListBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ListBox>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Content="Confirm" Style="{StaticResource MenuButtonStyle}" Margin="10, 0"/>
+                <Button Content="Confirm" Style="{StaticResource MenuButtonStyle}" Command="{Binding ConfirmCommand}" Margin="10, 0"/>
                 <Button Content="Cancel" Style="{StaticResource MenuButtonStyle}" Click="Button_Click"/>
             </StackPanel>
         </Grid>

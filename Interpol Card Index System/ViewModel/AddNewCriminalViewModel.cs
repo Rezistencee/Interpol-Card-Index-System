@@ -24,6 +24,7 @@ namespace Interpol_Card_Index_System.ViewModel
         private bool _isResult;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         public Criminal NewCriminal
         {
             get { return _newCriminal; }
