@@ -1,0 +1,126 @@
+﻿<Window x:Class="Interpol_Card_Index_System.Views.AddNewCriminalGroup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        mc:Ignorable="d"
+        Height="400" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
+        MouseDown="Window_MouseDown">
+    <Window.Background>
+        <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
+    </Window.Background>
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="10, 5"/>
+            <Setter Property="Foreground" Value="Wheat"/>
+            <Setter Property="FontFamily" Value="{StaticResource GraduateFont}"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10, 5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource DramaturgSC}"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#2C3E50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#34495E"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="FontFamily" Value="{StaticResource DramaturgSC}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinHeight" Value="25"/>
+            <Setter Property="MaxHeight" Value="70"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                            <ScrollViewer>
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="[ICIS] Add Criminal Group" Grid.Row="0" Foreground="White" 
+               FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
+               FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Group name:"/>
+                    <TextBox/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Leader:"/>
+                    <TextBox/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Description:"/>
+                    <TextBox Height="120" AcceptsReturn="True"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="Activities:"/>
+                    <ListBox x:Name="activitiesListBox" SelectionMode="Multiple">
+                        <ListBox.Items>
+                            <ListBoxItem>Значение 1</ListBoxItem>
+                            <ListBoxItem>Значение 2</ListBoxItem>
+                            <ListBoxItem>Значение 3</ListBoxItem>
+                        </ListBox.Items>
+                    </ListBox>
+                </StackPanel>
+                
+                <StackPanel>
+                    <TextBlock Text="Countries:"/>
+                    <ListBox x:Name="countriesListBox" SelectionMode="Multiple">
+                        <ListBox.Items>
+                            <ListBoxItem>Значение 1</ListBoxItem>
+                            <ListBoxItem>Значение 2</ListBoxItem>
+                            <ListBoxItem>Значение 3</ListBoxItem>
+                        </ListBox.Items>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Confirm" Style="{StaticResource MenuButtonStyle}" Margin="10, 0"/>
+                <Button Content="Cancel" Style="{StaticResource MenuButtonStyle}" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
