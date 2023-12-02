@@ -226,22 +226,9 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Width="170">
-                <StackPanel.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Offset="0" Color="#332F3B" />
-                        <GradientStop Offset="1" Color="#463F4E" />
-                    </LinearGradientBrush>
-                </StackPanel.Background>
-
-                <Button Content="Main" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Crime Groups" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Agents" Style="{StaticResource MenuButtonStyle}"/>
-            </StackPanel>
-
             <!--Main content section here -->
 
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="3*"/>
