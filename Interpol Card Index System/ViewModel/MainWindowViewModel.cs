@@ -21,12 +21,14 @@ namespace Interpol_Card_Index_System.ViewModel
         public RelayCommand LogoutCommand { get; private set; }
         public RelayCommand ShowCriminalGroupWindow { get; private set; }
         public RelayCommand ShowCriminalWindow { get; private set; }
+        public RelayCommand ShowAgentsWindow { get; private set; }
 
         public MainWindowViewModel()
         {
             LogoutCommand = new RelayCommand(Logout, IsUserAuthorized);
             ShowCriminalGroupWindow = new RelayCommand(CrimeWindowOpen, IsUserAuthorized);
             ShowCriminalWindow = new RelayCommand(CriminalWindowOpen, IsUserAuthorized);
+            ShowAgentsWindow = new RelayCommand(AgentsWindowOpen, IsUserAuthorized);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
@@ -53,6 +55,7 @@ namespace Interpol_Card_Index_System.ViewModel
 
         public int CriminalsCount => RepositoryService.Instance.Criminals.Count;
         public int CriminalGroupsCount => RepositoryService.Instance.CriminalGroups.Count;
+        public int AgentsCount => RepositoryService.Instance.Users.Count;
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -74,6 +77,12 @@ namespace Interpol_Card_Index_System.ViewModel
         {
             Views.CriminalWindow criminalWindow = new Views.CriminalWindow();
             criminalWindow.Show();
+        }
+
+        private void AgentsWindowOpen(object parameter)
+        {
+            Views.AgentsWindow agentsWindow = new Views.AgentsWindow();
+            agentsWindow.Show();
         }
 
         private void Logout(object parameter)

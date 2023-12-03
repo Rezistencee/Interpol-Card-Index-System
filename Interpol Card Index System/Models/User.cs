@@ -12,6 +12,7 @@ namespace Interpol_Card_Index_System.Models
 
         public int ID { get; private set; }
         public string Name { get; set; }
+        public DateTime Birthday { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public char AccessLevel { get; set; }
@@ -22,6 +23,7 @@ namespace Interpol_Card_Index_System.Models
             Name = String.Empty;
             Login = String.Empty;
             Password = String.Empty;
+            Birthday = DateTime.Now;
             AccessLevel = 'D';
         }
     }

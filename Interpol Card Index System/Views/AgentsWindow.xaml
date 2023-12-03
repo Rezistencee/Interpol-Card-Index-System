@@ -1,0 +1,272 @@
+﻿<Window x:Class="Interpol_Card_Index_System.Views.AgentsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interpol_Card_Index_System.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" 
+        MouseDown="Window_MouseDown">
+    <Window.Background>
+        <StaticResourceExtension ResourceKey="ApplicationBackgroundGradient"/>
+    </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource GraduateFont}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="0, 10"/>
+            <Setter Property="Background" Value="#372F3C"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="PART_BottomLine" Fill="{TemplateBinding Background}" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PART_BottomLine" Property="Fill" Value="#463F4E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Grid Background="#4D4855">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridRowHeaderStyle" TargetType="DataGridRowHeader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridRowHeader">
+                        <Grid Background="#4D4855">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="#4D4855"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#585858"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}"
+                    SnapsToDevicePixels="True">
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style for selected cell -->
+        <Style x:Key="DataGridCellSelectedStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="#4D4855"/>
+            <Setter Property="BorderBrush" Value="#585858"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <!-- Background cell animation -->
+        <Style TargetType="DataGridCell" x:Key="DataGridCellHoverStyle">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#372F3C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGrid" x:Key="CustomDataGridStyle">
+            <Setter Property="Background" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="RowBackground" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource ApplicationBackgroundGradient}" />
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource ApplicationBackgroundGradient}" />
+        </Style>
+
+        <Style x:Key="AddButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource GraduateFont}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="0, 10"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" 
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                    To="#00546B" Duration="0:0:1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" 
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                    To="#007ACC" Duration="0:0:1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="TextBox" x:Key="SearchTextBox">
+            <Setter Property="Padding" Value="15,2,2,2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Bisque"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Viewbox Width="24" Height="24" Margin="2, 0, 0, 0">
+                                    <Canvas Width="20" Height="20">
+                                        <Path Fill="White" Data="M8 15.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Zm11.707 2.793-4-4a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414-1.414Z"/>
+                                    </Canvas>
+                                </Viewbox>
+
+                                <Border Grid.Column="0" Width="2" Background="Gray" Margin="40,0,0,0"/>
+
+                                <ScrollViewer x:Name="PART_ContentHost" Grid.Column="1" Margin="0,0,2,0" VerticalAlignment="Center" Focusable="false"/>
+
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="[ICIS] Criminals" Grid.Row="0" Foreground="White" 
+               FontFamily="{StaticResource GraduateFont}" FontWeight="Bold"
+               FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <Image Source="pack://application:,,,/Resources/Images/interpol_logo.png" Width="32" Height="32" 
+               HorizontalAlignment="Center"/>
+        <Button Content="X" Grid.Row="0" Background="#182B3A" Foreground="White" 
+                Height="40" Width="40" Margin="0"
+                HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click"/>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Main content section here -->
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Width="180" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+                         Style="{StaticResource SearchTextBox}" Margin="0, 10" 
+                         Text="{Binding NameFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Grid.Column="2" Style="{StaticResource AddButtonStyle}" Command="{Binding AddCriminalCommand}"
+                        Content="Add" FontSize="18" FontFamily="{StaticResource GraduateFont}" 
+                        Height="40" Margin="20" VerticalAlignment="Bottom"/>
+
+                <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+                          ItemsSource="{Binding FilteredUsers}"
+                        CellStyle="{StaticResource DataGridCellStyle}"
+                        ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                        RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}"
+                        Grid.Row="1" RowHeight="30"
+                        Grid.ColumnSpan="3" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Access Level" Binding="{Binding AccessLevel}" Width="*"/>
+                        <DataGridTextColumn Header="Date of Birth" Binding="{Binding Birthday, StringFormat=Y}" Width="*"/>
+                        <DataGridTemplateColumn Header="Action" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Details" MinWidth="90" Command="{Binding Path=DataContext.ViewDetailsCommand,       
+                                         RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                         CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
